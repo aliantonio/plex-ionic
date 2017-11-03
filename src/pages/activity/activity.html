@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Activity
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+
+  <ion-list>
+    <ion-list-header>
+      <span class="primary">Currently Watching</span>
+    </ion-list-header>
+    
+    <ion-item *ngFor="let current of currentResults">
+      <ion-avatar item-start>
+        <img src="../assets/imgs/{{ current.User.title }}.jpg">
+      </ion-avatar>
+      <h2>{{ current.title }}</h2>
+      <p>{{ current.User.title }} - {{ current.Player.device }}</p>
+    </ion-item>
+    
+    <ion-list-header>
+        <span class="primary">Previously Watched</span>
+    </ion-list-header>
+    
+    <ion-item *ngFor="let previous of previousResults">
+      <ion-avatar item-start>
+        <img src="../assets/imgs/{{ previous.USER_ID }}.jpg">
+      </ion-avatar>
+      <h2>{{ previous.MEDIA_CONTENT }}</h2>
+      <p>{{ previous.USER_ID }} - {{ previous.TIMESTAMP | dateFormat | date:'MM/dd/yyyy hh:mma' : 'UTC' }}</p>
+      <ion-icon name="arrow-dropright" item-end></ion-icon>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

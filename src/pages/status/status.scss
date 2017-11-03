@@ -1,0 +1,30 @@
+page-status {
+
+}
+
+.logo-wrap {
+    width: 100%;
+    height: 200px;
+    background: #1F1F1F url(../assets/imgs/plex.jpg) no-repeat center;
+}
+
+.status-wrap, .recaptcha-wrap {
+    width: 375px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+i {
+    vertical-align: top;
+}
+
+#report i, #power-on i {
+    color: #fff !important;
+}
+
+.recaptcha-wrap {
+    text-align: -webkit-center;
+    padding-top: 15px;
+}
+
+ion-app.md [padding] .scroll-content { padding: 0 !important; }

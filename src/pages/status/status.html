@@ -1,0 +1,33 @@
+<!--
+<ion-header>
+  <ion-navbar>
+    <ion-title>Status</ion-title>
+  </ion-navbar>
+</ion-header>
+-->
+
+<ion-content padding>
+
+  <div class="logo-wrap"></div>
+  
+  <div class="status-wrap">
+      <h5>
+          PLEX SERVER IS {{ isPoweredOn ? 'ON' : 'OFF' }} <ion-icon *ngIf="!isPoweredOn" color="light" name="alert"></ion-icon><ion-icon *ngIf="isPoweredOn" name="checkmark-circle"></ion-icon>
+      </h5>
+      <p *ngIf="isPoweredOn">
+          Refresh your page/app.<br>
+          If you cannot see the library, click here.
+      </p>
+
+      <button ion-button icon-right id="report" (click)="report()" *ngIf="isPoweredOn">
+        <span color="light">Report</span>
+        <ion-icon color="light" name="alert"></ion-icon>
+      </button>
+
+      <button ion-button icon-right id="power-on" (click)="powerOn()" *ngIf="!isPoweredOn">
+        <span color="light">Turn on Plex</span>
+        <ion-icon color="light" name="power"></ion-icon>
+      </button>
+
+    </div>
+</ion-content>
