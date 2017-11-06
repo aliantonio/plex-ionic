@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the AccountPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { LoginPage } from '../login/login';
 
 @IonicPage()
 @Component({
@@ -15,11 +9,28 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class AccountPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  username = localStorage.getItem('userid');
+  
+  constructor(public navCtrl: NavController, public navParams: NavParams, private view: ViewController) {
+    this.resolve();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AccountPage');
+  resolve() {
+    console.log('resolving state of authentication');
+    if (localStorage.getItem('userid') === null) {
+      console.log('user not signed in, redirecting to login page');
+      //this.router.navigateByUrl('/login');
+      //this.navCtrl.push(LoginPage);
+      this.navCtrl.setRoot(LoginPage, {}, {animate: false, direction: "forward"});
+    }
+  }
+
+  logout() {
+    localStorage.clear();
+    console.log('local storage cleared, user logged out');
+    //this.router.navigateByUrl('/login');
+    this.navCtrl.setRoot(LoginPage, {}, {animate: false, direction: "forward"});
+    //this.navCtrl.push(LoginPage);
   }
 
 }

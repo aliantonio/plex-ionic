@@ -11,6 +11,8 @@ import { RequestsPage } from '../pages/requests/requests';
 import { StatusPage } from '../pages/status/status';
 import { TabsPage } from '../pages/tabs/tabs';
 import { AccountPage } from '../pages/account/account';
+import { LoginPage } from '../pages/login/login';
+import { ActivityDetailsPage } from '../pages/activity-details/activity-details';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -20,6 +22,11 @@ import { LoadingProvider } from '../providers/loading/loading';
 import { ToastProvider } from '../providers/toast/toast';
 import { DateFormatPipe } from '../pipes/date-format/date-format';
 
+import { StarRatingModule } from 'angular-star-rating';
+import { Md5 } from 'ts-md5/dist/md5';
+import { DataStoreProvider } from '../providers/data-store/data-store';
+import { AlertProvider } from '../providers/alert/alert';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -28,14 +35,17 @@ import { DateFormatPipe } from '../pipes/date-format/date-format';
     StatusPage,
     TabsPage,
     AccountPage,
-    DateFormatPipe
+    DateFormatPipe,
+    ActivityDetailsPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpModule,
     HttpClientModule,
-    JsonpModule
+    JsonpModule,
+    StarRatingModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -44,7 +54,9 @@ import { DateFormatPipe } from '../pipes/date-format/date-format';
     RequestsPage,
     StatusPage,
     TabsPage,
-    AccountPage
+    AccountPage,
+    ActivityDetailsPage,
+    LoginPage
   ],
   providers: [
     StatusBar,
@@ -53,7 +65,10 @@ import { DateFormatPipe } from '../pipes/date-format/date-format';
     PingServerProvider,
     JoinApiProvider,
     LoadingProvider,
-    ToastProvider
+    ToastProvider,
+    Md5,
+    DataStoreProvider,
+    AlertProvider
   ]
 })
 export class AppModule {}

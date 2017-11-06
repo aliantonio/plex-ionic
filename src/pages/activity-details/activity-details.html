@@ -1,0 +1,39 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title></ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-list>
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="./assets/images/{{name}}.jpg">
+      </ion-avatar>
+      <h2>{{dtls}}</h2>
+    </ion-item>
+  </ion-list>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12>
+        <span class="primary">{{stars == undefined ? "Not yet rated. Tap to rate." : "Rated " + stars + " out of 10"}}</span>
+        <star-rating-comp [starType]="'svg'" 
+          [hoverEnabled]="true" 
+          (onClick)="updateRating($event, false)" 
+          (onRatingChange)="onRatingChange($event)" 
+          (onHoverRatingChange)="onHoverRatingChange($event)" 
+          [numOfStars]="10"
+          [size]="'large'"
+          [rating]="stars">
+        </star-rating-comp>
+      </ion-col>
+    </ion-row>
+  </ion-grid>  
+
+
+</ion-content>

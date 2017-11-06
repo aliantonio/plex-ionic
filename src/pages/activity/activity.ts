@@ -8,6 +8,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import { ToastProvider } from '../../providers/toast/toast';
 import { LoadingProvider } from '../../providers/loading/loading';
+import { ActivityDetailsPage } from '../activity-details/activity-details';
 
 @Component({
   selector: 'page-activity',
@@ -75,6 +76,13 @@ export class ActivityPage {
       .catch(this.catchError);
   }
 
+  navigateTo(name, dtls) {
+    this.navCtrl.push(ActivityDetailsPage, {
+      name: name,
+      dtls: dtls
+    });
+  }
+
   private logResponse(res: Response) {
     console.log(res);
   }
@@ -84,7 +92,7 @@ export class ActivityPage {
   }
   
   private catchError(error: Response) {
-    //onsole.error(error);
+    //console.error(error);
     return Observable.throw(error || "Server error.");
   }
 

@@ -1,3 +1,4 @@
+
 <ion-header>
   <ion-navbar>
     <ion-title>
@@ -16,7 +17,7 @@
     
     <ion-item *ngFor="let current of currentResults">
       <ion-avatar item-start>
-        <img src="../assets/imgs/{{ current.User.title }}.jpg">
+        <img src="../assets/images/{{ current.User.title }}.jpg">
       </ion-avatar>
       <h2>{{ current.title }}</h2>
       <p>{{ current.User.title }} - {{ current.Player.device }}</p>
@@ -26,9 +27,9 @@
         <span class="primary">Previously Watched</span>
     </ion-list-header>
     
-    <ion-item *ngFor="let previous of previousResults">
+    <ion-item *ngFor="let previous of previousResults" (click)="navigateTo(previous.USER_ID, previous.MEDIA_CONTENT)">
       <ion-avatar item-start>
-        <img src="../assets/imgs/{{ previous.USER_ID }}.jpg">
+        <img src="../assets/images/{{ previous.USER_ID }}.jpg">
       </ion-avatar>
       <h2>{{ previous.MEDIA_CONTENT }}</h2>
       <p>{{ previous.USER_ID }} - {{ previous.TIMESTAMP | dateFormat | date:'MM/dd/yyyy hh:mma' : 'UTC' }}</p>
