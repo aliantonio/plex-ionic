@@ -33,7 +33,7 @@ export class ActivityPage {
       data => {
         console.log(data);
         this.currentResults = data.MediaContainer.Video;
-        this.load.hide();
+        //this.load.hide();
       },
       err => {
         console.error(err);

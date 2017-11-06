@@ -16,7 +16,7 @@ export class JoinApiProvider {
     // Successful responses call the first callback.
     data => {
       console.log(data);
-      if (data.success) {
+      if (data[0].success) {
         this.toast.showToast('Push sent successfully.');
       } else {
         this.toast.showToast('Something went wrong. Try again later.');
