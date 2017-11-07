@@ -43,7 +43,7 @@ export class StatusPage {
           this.load.hide();
         },
         err => {
-          this.ngOnDestroy();
+          //this.ngOnDestroy();
           console.error(err + " - computer is likely not powered on.");
           this.isPoweredOn = false;
           this.load.hide();

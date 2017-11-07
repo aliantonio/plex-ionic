@@ -8,11 +8,45 @@
 </ion-header>
 
 <ion-content>
+
   <ion-list>
-    <ion-list-header>Follow us on Twitter</ion-list-header>
+    
     <ion-item>
-      <ion-icon name="ionic" item-start></ion-icon>
-      @ionicframework
+      <ion-label floating>Request Movie / Show</ion-label>
+      <ion-input type="text" [(ngModel)]="request.title"></ion-input>
     </ion-item>
+
+    <button ion-button full color="primary" (click)="submitRequest();">Submit</button>
+
   </ion-list>
+
+  <ion-list>
+    
+    <ion-item-sliding *ngFor="let data of requests; let i = index">
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="./assets/images/{{ data.USER_ID }}.jpg">
+        </ion-avatar>
+        <h2 class="completed-{{data.CMPLTD}}">{{ data.REQUEST }}</h2>
+        <p class="admin-msg" *ngIf="data.COMMENTS != ''"><ion-icon class="admin-msg-icon" name="text"></ion-icon>Message from Anthony: {{ data.COMMENTS }}</p>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button color="danger" (click)="delete(i, data.ID)">
+          <ion-icon name="trash"></ion-icon>
+          Delete
+        </button>
+        <button ion-button color="primary" (click)="comment(data.USER_ID, data.REQUEST, data.ID)">
+          <ion-icon name="text"></ion-icon>
+          Comment
+        </button>
+        <button ion-button color="secondary" (click)="complete(data.ID)">
+          <ion-icon name="checkmark"></ion-icon>
+          Complete
+        </button>
+      </ion-item-options>
+          
+    </ion-item-sliding>
+
+  </ion-list>
+
 </ion-content>

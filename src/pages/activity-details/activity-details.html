@@ -33,7 +33,14 @@
         </star-rating-comp>
       </ion-col>
     </ion-row>
-  </ion-grid>  
+  </ion-grid>
 
+  <ion-list>
+    <ion-item>
+      <ion-label>Review</ion-label>
+      <ion-textarea [(ngModel)]="review.content" name="description">{{usercomments}}</ion-textarea>
+    </ion-item>
+    <button ion-button full color="primary" (click)="updateRating($event, true)"><ion-icon name="text"></ion-icon>Submit</button>
+  </ion-list>
 
 </ion-content>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { Md5 } from 'ts-md5/dist/md5';
 import { Http, Jsonp, Response, RequestOptions, Headers  } from '@angular/http';
 import { HttpParams } from '@angular/common/http';
