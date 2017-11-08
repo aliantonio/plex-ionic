@@ -40,10 +40,11 @@ export class StatusPage {
         .subscribe((data) => {
           console.log(data);
           this.isPoweredOn = true;
+          this.ngOnDestroy(); // remove for production
           this.load.hide();
         },
         err => {
-          //this.ngOnDestroy();
+          this.ngOnDestroy(); // remove for production
           console.error(err + " - computer is likely not powered on.");
           this.isPoweredOn = false;
           this.load.hide();

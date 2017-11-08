@@ -43,10 +43,11 @@ $colors: (
 
 $background-color: #1F1F1F;
 h1, h2, h3, h4, h5 { color: #fff; }
-.tabs-md .tabbar, .toolbar-background-md { background: #000 !important; }
+.tabs-md .tabbar { background: #000 !important; }
 .tabs-md .tab-button-icon { color: #ddd !important; }
 p, .tab-button-text, .toolbar-title-md, .tabs-md .tab-button[aria-selected=true] .tab-button-icon, .primary { color: #FF9625 !important; }
 ion-icon { vertical-align: text-bottom; color: #FF9625; }
+.toolbar-background-md { background: $background-color !important; }
 
 // App iOS Variables
 // --------------------------------------------------

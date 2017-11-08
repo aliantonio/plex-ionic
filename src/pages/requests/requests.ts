@@ -9,6 +9,7 @@ import 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
+import { DataStoreProvider } from '../../providers/data-store/data-store';
 
 @Component({
   selector: 'page-requests',
@@ -23,7 +24,7 @@ export class RequestsPage {
   clicked: boolean;
   
   constructor(public navCtrl: NavController, private http: Http, private alert: AlertProvider,
-    private load: LoadingProvider, private toast: ToastProvider) {
+    private load: LoadingProvider, private toast: ToastProvider, private dataStore: DataStoreProvider) {
 
   }
 

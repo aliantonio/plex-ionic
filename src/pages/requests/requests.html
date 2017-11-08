@@ -30,7 +30,7 @@
         <h2 class="completed-{{data.CMPLTD}}">{{ data.REQUEST }}</h2>
         <p class="admin-msg" *ngIf="data.COMMENTS != ''"><ion-icon class="admin-msg-icon" name="text"></ion-icon>Message from Anthony: {{ data.COMMENTS }}</p>
       </ion-item>
-      <ion-item-options side="right">
+      <ion-item-options side="right" *ngIf="dataStore.getUserLoggedIn() == 'aliantonio'">
         <button ion-button color="danger" (click)="delete(i, data.ID)">
           <ion-icon name="trash"></ion-icon>
           Delete

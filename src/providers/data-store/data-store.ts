@@ -5,14 +5,23 @@ export class DataStoreProvider {
 
   constructor() { }
 
-  url: string;
-  
-    getRedirectUrl() {
-      return this.url;
-    }
-  
-    setRedirectUrl(url: string) {
-      this.url = url;
-    }
+  isLoggedIn: boolean;
+  user: string;
+
+  getLoggedInState() {
+    return this.isLoggedIn;
+  }
+
+  setLoggedInState(isLoggedIn: boolean) {
+    this.isLoggedIn = isLoggedIn;
+  }
+
+  getUserLoggedIn() {
+    return this.user;
+  }
+
+  setUserLoggedIn(user: string) {
+    this.user = user;
+  }
 
 }

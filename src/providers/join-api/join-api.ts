@@ -16,8 +16,10 @@ export class JoinApiProvider {
     // Successful responses call the first callback.
     data => {
       console.log(data);
-      if (data[0].success) {
-        this.toast.showToast('Push sent successfully.');
+      if (param == "plex%20request") {
+        this.toast.showToast('Success! Plex will be on shortly.');
+      } else if (param == "check%20plex") {
+        this.toast.showToast('Ok. I will look into it. Check back in a few minutes.');
       } else {
         this.toast.showToast('Something went wrong. Try again later.');
       }

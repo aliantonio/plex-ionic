@@ -9,14 +9,30 @@
 
 <ion-content padding>
 
-  <ion-list>
+  <ion-list *ngIf="dataStore.getLoggedInState()">
     <ion-item>
       <ion-avatar item-start>
-        <img src="./assets/images/{{username}}.jpg">
+        <img src="./assets/images/{{dataStore.getUserLoggedIn()}}.jpg">
       </ion-avatar>
-      <h2>Welcome {{username}}</h2>
+      <h2>Welcome {{dataStore.getUserLoggedIn()}}</h2>
       <button ion-button item-end (click)="logout()">Logout</button>
     </ion-item>
   </ion-list>
+
+  <ion-list *ngIf="!dataStore.getLoggedInState()">
+    
+  <ion-item>
+    <ion-label floating>Username</ion-label>
+    <ion-input type="text" [(ngModel)]="user.name"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Password</ion-label>
+    <ion-input type="password" [(ngModel)]="user.pass"></ion-input>
+  </ion-item>
+  <button ion-button full color="primary" (click)="login();$event.preventDefault();">Login</button>
+
+</ion-list>
+
 
 </ion-content>

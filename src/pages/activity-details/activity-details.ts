@@ -11,6 +11,7 @@ import { LoadingProvider } from '../../providers/loading/loading';
 import { DataStoreProvider } from '../../providers/data-store/data-store';
 import { AlertProvider } from '../../providers/alert/alert';
 import { ToastProvider } from '../../providers/toast/toast';
+import { AccountPage } from '../account/account';
 
 @IonicPage()
 @Component({
@@ -68,7 +69,13 @@ export class ActivityDetailsPage {
   updateRating = ($event:OnClickEvent, isComments: boolean) => {
     let loggedIn = localStorage.getItem('userid');
     if (loggedIn == null || loggedIn == undefined) {
-      this.alert.showAlert('Error', 'Please login before submitting your review.');
+      this.toast.showToast('Please login before submitting your review.');
+      this.navCtrl.push(AccountPage, {
+        navigateBack: true
+      }, {
+        animate: true,
+        direction: "forward"  
+      });
       return;
     } else if (loggedIn != this.name) {
       this.alert.showAlert('Error', 'You cannot submit ratings for other people.');
@@ -103,12 +110,6 @@ export class ActivityDetailsPage {
     }
   };
 
-  login() {
-    //this.closeModal();
-    this.dataStore.setRedirectUrl("activity/"+this.name+"/"+this.dtls+"");
-    //this.router.navigate(['login']);
-  }
-
   private getMediaDetails() {
     let body = new URLSearchParams();
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
@@ -125,7 +126,8 @@ export class ActivityDetailsPage {
 
   private setUserReview() {
     // make call to DB to update rating
-    let commentsClean = this.review['content'].replace(/'/g, '');
+    let commentsClean = "";
+    this.review['content'] == undefined ? commentsClean = "" : commentsClean = this.review['content'].replace(/'/g, '');
     let body = new URLSearchParams();
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });

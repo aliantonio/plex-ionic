@@ -11,7 +11,6 @@ import { RequestsPage } from '../pages/requests/requests';
 import { StatusPage } from '../pages/status/status';
 import { TabsPage } from '../pages/tabs/tabs';
 import { AccountPage } from '../pages/account/account';
-import { LoginPage } from '../pages/login/login';
 import { ActivityDetailsPage } from '../pages/activity-details/activity-details';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -36,8 +35,7 @@ import { AlertProvider } from '../providers/alert/alert';
     TabsPage,
     AccountPage,
     DateFormatPipe,
-    ActivityDetailsPage,
-    LoginPage
+    ActivityDetailsPage
   ],
   imports: [
     BrowserModule,
@@ -55,8 +53,7 @@ import { AlertProvider } from '../providers/alert/alert';
     StatusPage,
     TabsPage,
     AccountPage,
-    ActivityDetailsPage,
-    LoginPage
+    ActivityDetailsPage
   ],
   providers: [
     StatusBar,
