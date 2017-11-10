@@ -1,7 +1,22 @@
-page-activity-details {
-
-}
-
 ion-icon {
     padding-right: 5px;
+}
+
+.rating-icon {
+    height: 50px;
+    width: auto;
+    vertical-align: middle;
+    padding-right: 5px;
+}
+
+.omdb-content {
+    margin: 15px;
+}
+
+.omdb-content li {
+    color: #FF9625 !important;
+}
+
+.omdb-rating {
+    color: #fff !important;
 }

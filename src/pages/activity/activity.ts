@@ -8,6 +8,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import { ToastProvider } from '../../providers/toast/toast';
 import { LoadingProvider } from '../../providers/loading/loading';
+import { DataStoreProvider } from '../../providers/data-store/data-store';
 import { ActivityDetailsPage } from '../activity-details/activity-details';
 
 @Component({
@@ -20,10 +21,9 @@ export class ActivityPage {
   previousResults: string[];
 
   constructor(public navCtrl: NavController, private http: Http, private jsonp: Jsonp,
-      private load: LoadingProvider, private toast: ToastProvider) { }
+      private load: LoadingProvider, private toast: ToastProvider, private dataStore: DataStoreProvider) { }
 
   ngOnInit() {
-    this.load.show();
     this.subscribePrevActivity();
     this.subscribeCurrActivity();
   }
@@ -45,6 +45,7 @@ export class ActivityPage {
   }
 
   subscribePrevActivity() {
+    this.load.show();
     this.getPreviousActivity()
       .subscribe(
         data => {
@@ -76,11 +77,23 @@ export class ActivityPage {
       .catch(this.catchError);
   }
 
-  navigateTo(name, dtls) {
+  navigateTo(type, user, title, showTitle, season, episode) {
+    this.dataStore.setType(type);
+    this.dataStore.setUser(user);
+    this.dataStore.setTitle(title);
+    this.dataStore.setShowTitle(showTitle);
+    this.dataStore.setSeason(season);
+    this.dataStore.setEpisode(episode);
     this.navCtrl.push(ActivityDetailsPage, {
-      name: name,
-      dtls: dtls
+      name: user,
+      dtls: title
     });
+  }
+
+  doRefresh(refresher) {
+    console.log('refresh called', refresher);
+    this.subscribePrevActivity();
+    refresher.complete();
   }
 
   private logResponse(res: Response) {

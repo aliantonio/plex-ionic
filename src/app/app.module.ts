@@ -25,6 +25,7 @@ import { StarRatingModule } from 'angular-star-rating';
 import { Md5 } from 'ts-md5/dist/md5';
 import { DataStoreProvider } from '../providers/data-store/data-store';
 import { AlertProvider } from '../providers/alert/alert';
+import { SubmitCommentsProvider } from '../providers/submit-comments/submit-comments';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { AlertProvider } from '../providers/alert/alert';
     ToastProvider,
     Md5,
     DataStoreProvider,
-    AlertProvider
+    AlertProvider,
+    SubmitCommentsProvider
   ]
 })
 export class AppModule {}

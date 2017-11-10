@@ -10,6 +10,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import { DataStoreProvider } from '../../providers/data-store/data-store';
+import { AccountPage } from '../account/account';
 
 @Component({
   selector: 'page-requests',
@@ -44,6 +45,7 @@ export class RequestsPage {
         err => {
           console.error(err);
           this.load.hide();
+          this.toast.showToast('Something went wrong. Please check your internet connection.');
         }
     )
   }
@@ -61,8 +63,14 @@ export class RequestsPage {
     let request = this.request['title'];
     
     if ( loggedIn == null || loggedIn == undefined ) {
-      let bool = this.alert.showPrompt('Error', 'Please login before submitting your request.');
-      console.log(bool);
+      this.toast.showToast('Please login before submitting your request.');
+      this.navCtrl.push(AccountPage, {
+        navigateBack: true
+      }, {
+        animate: true,
+        direction: "forward"  
+      });
+      return;
     } else if (request === undefined) {
       this.alert.showAlert('Error', 'Please enter a request before submitting.');
     } else {
@@ -86,12 +94,6 @@ export class RequestsPage {
       )
       
     }
-  }
-
-  login() {
-    this.closeModal();
-    //this.dataStore.setRedirectUrl('requests');
-    //this.router.navigate(['login']);
   }
 
   onEnter($event) {
@@ -142,33 +144,15 @@ export class RequestsPage {
     
   }
 
-  comment(name, title, id) {
+  comment(name, request, id) {
     this.id = id;
-    this.alert.showPrompt(name, title)
-    //this.openModal(''+name+' : '+title+ '', '', true, true);
+    this.alert.showPrompt(name, request, id)
   }
 
-  submitComments() {
-
-    this.load.show();
-    
-    // subscribe to call to DB
-    this.dbSubmitComment()
-    .subscribe(
-      data => {
-        console.log(data);
-        this.load.hide();
-        //this.oComments.nativeElement.value = "";
-        this.closeModal();
-        this.subscribeToRequests();
-        this.toast.showToast('Comment added successfully.');
-      },
-      err => {
-        console.error(err);
-        this.toast.showToast('Something went wrong. Try again later.');
-        this.load.hide();
-      }
-    )
+  doRefresh(refresher) {
+    console.log('refresh called', refresher);
+    this.subscribeToRequests();
+    refresher.complete();
   }
 
   private markComplete(id) {
@@ -182,31 +166,6 @@ export class RequestsPage {
     return this.http.post("http://asliantonio.com/plex/php/markcomplete.php", body.toString(), options)
       .do(this.logResponse)
       .catch(this.catchError);
-  }
-
-  private dbSubmitComment() {
-    let body = new URLSearchParams();
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    let options = new RequestOptions({ headers: headers });
-    body.append('id', this.id);
-    //body.append('comment', this.oComments.nativeElement.value);
-   // console.log(this.id, this.oComments.nativeElement.value);
-
-    return this.http.post("http://asliantonio.com/plex/php/submitcomment.php", body.toString(), options)
-      .do(this.logResponse)
-      .catch(this.catchError);
-  }
-
-  private openModal(title, message, isLoggedIn, isComments) {
-    //this.modalTitle = title;
-    //this.modalMsg = message;
-    //this.isLoggedIn = isLoggedIn;
-    //this.isComments = isComments;
-    //this.modalActions.emit({ action: "modal", params: ["open"] });
-  }
-
-  closeModal() {
-    //this.modalActions.emit({ action: "modal", params: ["close"] });
   }
 
   private dbSubmit() {

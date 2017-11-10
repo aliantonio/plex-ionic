@@ -1,9 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { Http, Jsonp } from '@angular/http';
 import { Observable } from "rxjs";
 import 'rxjs/Rx';
-import { IntervalObservable } from "rxjs/observable/IntervalObservable";
 import { JoinApiProvider } from '../../providers/join-api/join-api';
 import { PingServerProvider } from '../../providers/ping-server/ping-server';
 import { LoadingProvider } from '../../providers/loading/loading';
@@ -19,8 +17,8 @@ export class StatusPage {
   private requestSent: boolean;
   private reportSent: boolean;
 
-  constructor(public navCtrl: NavController, private http: Http, private ping: PingServerProvider,
-            private joinApi: JoinApiProvider, private jsonp: Jsonp, private load: LoadingProvider) {
+  constructor(public navCtrl: NavController, private ping: PingServerProvider, private joinApi: JoinApiProvider,
+      private load: LoadingProvider) {
     this.alive = true;
     this.requestSent = false;
     this.reportSent = false;
@@ -34,17 +32,17 @@ export class StatusPage {
 
   checkStatus() {
     Observable.timer(0, 5000) // 5 seconds
-    .takeWhile(() => this.alive)
+    .takeWhile(() => this.alive)  
     .subscribe(() => {
       this.ping.ping()
         .subscribe((data) => {
           console.log(data);
           this.isPoweredOn = true;
-          this.ngOnDestroy(); // remove for production
+          //this.ngOnDestroy(); // comment out for production
           this.load.hide();
         },
         err => {
-          this.ngOnDestroy(); // remove for production
+          //this.ngOnDestroy(); // comment out for production
           console.error(err + " - computer is likely not powered on.");
           this.isPoweredOn = false;
           this.load.hide();

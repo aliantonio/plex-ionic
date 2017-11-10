@@ -29,6 +29,10 @@ export class ActivityDetailsPage {
   review = {};
   usercomments: string;
   stars: number;
+  genre: string;
+  plot: string;
+  imdbId: string;
+  omdbRatings: string[] = [];
   
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: Http, private jsonp: Jsonp, private alert: AlertProvider,
     private load: LoadingProvider, private dataStore: DataStoreProvider, private toast: ToastProvider) { }
@@ -62,8 +66,27 @@ export class ActivityDetailsPage {
         err => {
           console.error(err);
           this.load.hide();
+          this.toast.showToast('Something went wrong. Please check your internet connection');
         }
     )
+    this.getImdbRatings()
+      .subscribe(
+        data => {
+          console.log(data);
+          this.genre = data.Genre;
+          this.plot = data.Plot;
+          for (let i = 0; i < data.Ratings.length; i++) {
+            this.omdbRatings.push(data.Ratings[i].Value);
+          }
+
+          this.imdbId = data.imdbID;
+          this.load.hide();
+        },
+        err => {
+          console.error(err);
+          this.load.hide();
+        }
+    );
   }
 
   updateRating = ($event:OnClickEvent, isComments: boolean) => {
@@ -110,6 +133,20 @@ export class ActivityDetailsPage {
     }
   };
 
+  goToImdb() {
+    console.log(this.imdbId);
+    window.open('http://www.imdb.com/title/' + this.imdbId, '_system', 'location=yes');
+  }
+
+  private encode(v: string): string {
+      return v
+      .replace(/:/g, '')
+      .replace(/@/g, '')
+      .replace(/$/g, '')
+      .replace(/,/g, '')
+      .replace(/;/g, '')
+  }  
+  
   private getMediaDetails() {
     let body = new URLSearchParams();
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
@@ -118,10 +155,32 @@ export class ActivityDetailsPage {
     body.append('content', this.dtls);
 
     return this.http.post("http://asliantonio.com/plex/php/dbratequery.php", body.toString(), options)
+      .timeout(10000)  
       .do(this.logResponse)
       .map(this.extractData)
       .catch(this.catchError);
     
+  }
+
+  private getImdbRatings() {
+    let body = new URLSearchParams();
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    
+    if (this.dataStore.getType() === 'movie' || this.dataStore.getType() === '') {
+      body.set('t', this.encode(this.dataStore.getTitle()));
+    } else if (this.dataStore.getType() === 'episode') {
+      body.set('t', this.dataStore.getShowTitle());
+      body.set('Season', this.dataStore.getSeason().slice(7)); // remove the word season from string
+      body.set('Episode', this.dataStore.getEpisode());
+    }
+    body.set('apikey', "288b0aab");
+    
+    return this.http.get("http://www.omdbapi.com/?", {params: body.toString()})
+      .timeout(10000)  
+      .do(this.logResponse)
+      .map(this.extractData)
+      .catch(this.catchError);
   }
 
   private setUserReview() {

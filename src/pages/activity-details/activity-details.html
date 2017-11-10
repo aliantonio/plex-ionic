@@ -18,6 +18,28 @@
     </ion-item>
   </ion-list>
 
+  <ion-grid class="omdb-rating">
+    <ion-row>
+      <ion-col col-12>{{genre}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>{{plot}}</ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngIf="omdbRatings[0] != undefined">
+    <ion-row>
+      <ion-col col-5 (click)="goToImdb()">
+        <img src="./assets/images/imdb.png" alt="" class="imdb rating-icon">
+        <span class="omdb-rating imdb">{{omdbRatings[0]}}</span>
+      </ion-col>
+      <ion-col col-5 *ngIf="omdbRatings[1] != undefined">
+        <img src="./assets/images/rottentomatoes.png" alt="" class="rating-icon">
+        <span class="omdb-rating">{{omdbRatings[1]}}</span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
   <ion-grid>
     <ion-row>
       <ion-col col-12>

@@ -8,6 +8,9 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing..."></ion-refresher-content>
+  </ion-refresher>
 
   <ion-list>
     <ion-list-header>
@@ -18,7 +21,7 @@
       <ion-avatar item-start>
         <img src="./assets/images/{{ current.User.title }}.jpg">
       </ion-avatar>
-      <h2>{{ current.title }}</h2>
+      <h2><span *ngIf="current.type == 'episode'">{{ current.grandparentTitle }} - </span>{{ current.title }}</h2>
       <p>{{ current.User.title }} - {{ current.Player.device }}</p>
     </ion-item>
     
@@ -26,7 +29,7 @@
         <span class="primary">Previously Watched</span>
     </ion-list-header>
     
-    <ion-item *ngFor="let previous of previousResults" (click)="navigateTo(previous.USER_ID, previous.MEDIA_CONTENT)">
+    <ion-item *ngFor="let previous of previousResults" (click)="navigateTo(previous.TYPE, previous.USER_ID, previous.MEDIA_CONTENT, previous.SHOW_TITLE, previous.SEASON, previous.EPISODE_NUM)">
       <ion-avatar item-start>
         <img src="./assets/images/{{ previous.USER_ID }}.jpg">
       </ion-avatar>
