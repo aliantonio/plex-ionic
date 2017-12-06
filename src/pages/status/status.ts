@@ -5,6 +5,7 @@ import 'rxjs/Rx';
 import { JoinApiProvider } from '../../providers/join-api/join-api';
 import { PingServerProvider } from '../../providers/ping-server/ping-server';
 import { LoadingProvider } from '../../providers/loading/loading';
+import { ToastProvider } from '../../providers/toast/toast';
 
 @Component({
   selector: 'page-status',
@@ -18,7 +19,7 @@ export class StatusPage {
   private reportSent: boolean;
 
   constructor(public navCtrl: NavController, private ping: PingServerProvider, private joinApi: JoinApiProvider,
-      private load: LoadingProvider) {
+      private load: LoadingProvider, private toast: ToastProvider) {
     this.alive = true;
     this.requestSent = false;
     this.reportSent = false;
@@ -63,7 +64,7 @@ export class StatusPage {
 
   report() {
     if ( this.reportSent ) {
-//      toast("A report has already been sent.", 4000, 'rounded');
+      this.toast.showToast('A report has already been sent.');
     } else {
       console.log('power button triggered');
       this.joinApi.push("check%20plex");
