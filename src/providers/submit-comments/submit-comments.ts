@@ -42,7 +42,7 @@ export class SubmitCommentsProvider {
     body.append('id', id);
     body.append('comment', comments);
 
-    return this.http.post("http://asliantonio.com/plex/php/submitcomment.php", body.toString(), options)
+    return this.http.post("https://asliantonio.com/plex/php/submitcomment.php", body.toString(), options)
       .do(this.logResponse)
       .catch(this.catchError);
   }

@@ -70,7 +70,7 @@ export class ActivityPage {
   }
 
   getPreviousActivity() {
-    return this.http.get('http://asliantonio.com/plex/php/dbquery.php')
+    return this.http.get('https://asliantonio.com/plex/php/dbquery.php')
       .timeout(10000)
       .do(this.logResponse)
       .map(this.extractData)

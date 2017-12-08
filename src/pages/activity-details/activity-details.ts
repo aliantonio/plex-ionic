@@ -154,7 +154,7 @@ export class ActivityDetailsPage {
     body.append('name', this.name);
     body.append('content', this.dtls);
 
-    return this.http.post("http://asliantonio.com/plex/php/dbratequery.php", body.toString(), options)
+    return this.http.post("https://asliantonio.com/plex/php/dbratequery.php", body.toString(), options)
       .timeout(10000)  
       .do(this.logResponse)
       .map(this.extractData)
@@ -196,7 +196,7 @@ export class ActivityDetailsPage {
     body.append('rating', this.stars.toString());
     body.append('comments', commentsClean);
 
-    return this.http.post("http://asliantonio.com/plex/php/dbupdaterating.php", body.toString(), options)
+    return this.http.post("https://asliantonio.com/plex/php/dbupdaterating.php", body.toString(), options)
       .do(this.logResponse)
       .map(this.extractData)
       .catch(this.catchError);

@@ -105,7 +105,7 @@ export class AccountPage {
   }
 
   private callLogin(body, options) {
-    return this.http.post('http://asliantonio.com/plex/php/login.php', body, options)
+    return this.http.post('https://asliantonio.com/plex/php/login.php', body, options)
       .timeout(10000)
       .do(this.logResponse)
       .map(this.extractData)

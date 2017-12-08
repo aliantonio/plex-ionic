@@ -51,7 +51,7 @@ export class RequestsPage {
   }
 
   getRequests() {
-    return this.http.get('http://asliantonio.com/plex/php/getrequests.php')
+    return this.http.get('https://asliantonio.com/plex/php/getrequests.php')
       .timeout(10000)
       .do(this.logResponse)
       .map(this.extractData)
@@ -163,7 +163,7 @@ export class RequestsPage {
     console.log(id);
     console.log('marking complete');
 
-    return this.http.post("http://asliantonio.com/plex/php/markcomplete.php", body.toString(), options)
+    return this.http.post("https://asliantonio.com/plex/php/markcomplete.php", body.toString(), options)
       .do(this.logResponse)
       .catch(this.catchError);
   }
@@ -177,7 +177,7 @@ export class RequestsPage {
     body.append('name', loggedIn);
     body.append('request', request);
 
-    return this.http.post("http://asliantonio.com/plex/php/submitrequest.php", body.toString(), options)
+    return this.http.post("https://asliantonio.com/plex/php/submitrequest.php", body.toString(), options)
       .do(this.logResponse)
       .catch(this.catchError);
   }
@@ -188,7 +188,7 @@ export class RequestsPage {
     let options = new RequestOptions({ headers: headers });
     body.append('data', id);
 
-    return this.http.post("http://asliantonio.com/plex/php/deleterequest.php", body.toString(), options)
+    return this.http.post("https://asliantonio.com/plex/php/deleterequest.php", body.toString(), options)
     .do(this.logResponse)
     .catch(this.catchError);
   }
