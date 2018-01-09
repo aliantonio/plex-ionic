@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { Http, Jsonp, Response } from '@angular/http';
+import { Http, Jsonp, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
 import { Observable } from "rxjs";
 import 'rxjs/Rx';
 import 'rxjs/add/operator/map';
@@ -19,6 +19,8 @@ export class ActivityPage {
 
   currentResults: string[];
   previousResults: string[];
+  limit: any = 50;
+  offset: any = 0;
 
   constructor(public navCtrl: NavController, private http: Http, private jsonp: Jsonp,
       private load: LoadingProvider, private toast: ToastProvider, private dataStore: DataStoreProvider) { }
@@ -42,6 +44,48 @@ export class ActivityPage {
         //toast('Something went wrong. Please check your internet connection.', 7000, 'rounded');
       }
     )
+  }
+
+  loadMore() {
+    console.log('pushing');
+    this.subscribeLoadMore();
+    console.log(this.previousResults);
+  }
+
+  subscribeLoadMore() {
+    this.load.show();
+    this.getMoreResults()
+      .subscribe(
+        data => {
+          console.log(data);
+          data.forEach((obj) => {
+            this.previousResults.push(obj);
+          });
+
+          this.load.hide();
+        },
+        err => {
+          console.error(err);
+          this.load.hide();
+          this.toast.showToast('Something went wrong. Please check your internet connection');
+        }
+    )
+  }
+
+  getMoreResults() {
+    this.offset = this.offset + this.limit;
+    let body = new URLSearchParams();
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    let options = new RequestOptions({ headers: headers });
+    body.set('limit', this.limit);
+    body.set('offset', this.offset);
+
+    return this.http.get('https://asliantonio.com/plex/php/dbquery.php', {params: body.toString()})
+      .timeout(10000)
+      .do(this.logResponse)
+      .map(this.extractData)
+      .catch(this.catchError);
+      
   }
 
   subscribePrevActivity() {
@@ -70,7 +114,13 @@ export class ActivityPage {
   }
 
   getPreviousActivity() {
-    return this.http.get('https://asliantonio.com/plex/php/dbquery.php')
+    let body = new URLSearchParams();
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    let options = new RequestOptions({ headers: headers });
+    body.set('limit', this.limit);
+    body.set('offset', this.offset);
+
+    return this.http.get('https://asliantonio.com/plex/php/dbquery.php', {params: body.toString()})
       .timeout(10000)
       .do(this.logResponse)
       .map(this.extractData)

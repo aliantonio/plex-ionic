@@ -75,8 +75,11 @@ export class ActivityDetailsPage {
           console.log(data);
           this.genre = data.Genre;
           this.plot = data.Plot;
-          for (let i = 0; i < data.Ratings.length; i++) {
-            this.omdbRatings.push(data.Ratings[i].Value);
+          console.log(data.Ratings);
+          if (data.Ratings) {
+            for (let i = 0; i < data.Ratings.length; i++) {
+              this.omdbRatings.push(data.Ratings[i].Value);
+            }
           }
 
           this.imdbId = data.imdbID;
