@@ -17,7 +17,7 @@
       <span class="primary">Currently Watching</span>
     </ion-list-header>
     
-    <ion-item *ngFor="let current of currentResults">
+    <ion-item text-wrap *ngFor="let current of currentResults">
       <ion-avatar item-start>
         <img src="./assets/images/{{ current.User.title }}.jpg">
       </ion-avatar>
@@ -29,7 +29,7 @@
         <span class="primary">Previously Watched</span>
     </ion-list-header>
     
-    <ion-item *ngFor="let previous of previousResults" (click)="navigateTo(previous.TYPE, previous.USER_ID, previous.MEDIA_CONTENT, previous.SHOW_TITLE, previous.SEASON, previous.EPISODE_NUM)">
+    <ion-item text-wrap *ngFor="let previous of previousResults" (click)="navigateTo(previous.TYPE, previous.USER_ID, previous.MEDIA_CONTENT, previous.SHOW_TITLE, previous.SEASON, previous.EPISODE_NUM)">
       <ion-avatar item-start>
         <img src="./assets/images/{{ previous.USER_ID }}.jpg">
       </ion-avatar>
@@ -38,5 +38,6 @@
       <ion-icon name="arrow-dropright" item-end></ion-icon>
     </ion-item>
   </ion-list>
+  <button ion-button full color="primary" (click)="loadMore();">Load more...</button>
 
 </ion-content>
