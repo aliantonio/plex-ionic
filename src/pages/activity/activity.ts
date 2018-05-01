@@ -34,8 +34,8 @@ export class ActivityPage {
     this.getCurrActivity()
     .subscribe(
       data => {
-        console.log(data);
-        this.currentResults = data.MediaContainer.Video;
+        console.log("CURRENT ACTIVITY:", data);
+        this.currentResults = data.MediaContainer.Metadata;
         //this.load.hide();
       },
       err => {
@@ -142,6 +142,7 @@ export class ActivityPage {
 
   doRefresh(refresher) {
     console.log('refresh called', refresher);
+    this.getCurrActivity();
     this.subscribePrevActivity();
     refresher.complete();
   }
