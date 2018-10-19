@@ -8,7 +8,7 @@ export class JoinApiProvider {
   constructor(public http: HttpClient, private toast: ToastProvider) { }
 
   push(param: string, email?: any) {
-    let deviceId = '601a2c5f37424cfca594df6ea9881e23'; // pixel 2
+    let deviceId = 'a5e9faf6b82c4f90a7a1974c1a049e5e'; // pixel 3
     let apiKey = '36daccd47ff14aa385a36d425ab4bc13';
     console.log('https://joinjoaomgcd.appspot.com/_ah/api/messaging/v1/sendPush?text=' + param + email + '&deviceId=' + deviceId + '&apikey=' + apiKey);
     this.http.get('https://joinjoaomgcd.appspot.com/_ah/api/messaging/v1/sendPush?text=' + param + email + '&deviceId=' + deviceId + '&apikey=' + apiKey)
